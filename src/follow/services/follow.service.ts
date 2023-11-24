@@ -35,17 +35,31 @@ export class FollowService {
     return follows;
   }
 
-  async findFollowerOrFollowings(filterFollowInput) {
-    let filter;
-    if (filterFollowInput.followerId) {
-      filter = { followerId: filterFollowInput.followerId };
-    }
-    if (filterFollowInput.followingId) {
-      filter = { followingId: filterFollowInput.followingId };
-    }
-    const follows = await this.followRepository.findAll({
-      where: filter,
+  // async findFollowerOrFollowings(filterFollowInput) {
+  //   let filter;
+  //   if (filterFollowInput.followerId) {
+  //     filter = { followerId: filterFollowInput.followerId };
+  //   }
+  //   if (filterFollowInput.followingId) {
+  //     filter = { followingId: filterFollowInput.followingId };
+  //   }
+  //   const follows = await this.followRepository.findAll({
+  //     where: filter,
+  //   });
+  //   return follows;
+  // }
+
+  async findFollwers(followingId) {
+    const followers = await this.followRepository.findAll({
+      where: { followingId },
     });
-    return follows;
+    return followers.map((follower) => follower.followerId);
+  }
+
+  async findFollwings(followerId) {
+    const followers = await this.followRepository.findAll({
+      where: { followerId },
+    });
+    return followers.map((follower) => follower.followingId);
   }
 }

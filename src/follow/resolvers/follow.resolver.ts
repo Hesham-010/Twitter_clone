@@ -23,10 +23,20 @@ export class FollowResolver {
     return this.followService.findAll();
   }
 
-  @Query(() => [FollowType])
-  findFollowerOrFollowings(
-    @Args('filterFollowInput') filterFollowInput: FilterFollowInput,
-  ) {
-    return this.followService.findFollowerOrFollowings(filterFollowInput);
+  // @Query(() => String)
+  // findFollowerOrFollowings(
+  //   @Args('filterFollowInput') filterFollowInput: FilterFollowInput,
+  // ) {
+  //   return this.followService.findFollowerOrFollowings(filterFollowInput);
+  // }
+
+  @Query(() => [String])
+  findFollwers(@Args('followingId') followingId: string) {
+    return this.followService.findFollwers(followingId);
+  }
+
+  @Query(() => [String])
+  findFollwings(@Args('followerId') followerId: string) {
+    return this.followService.findFollwings(followerId);
   }
 }
